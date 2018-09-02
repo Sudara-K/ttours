@@ -1,0 +1,19 @@
+li a {
+    color: green;
+}
+
+.container {
+    width: 150px;
+    height: 100px;
+    background-image: url("images/bg_top.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.nright{
+    max-width: 100%;width: 100%;
+    float: none;
+    display:inline-block;
+    vertical-align: top;  
+    text-align: right;
+}

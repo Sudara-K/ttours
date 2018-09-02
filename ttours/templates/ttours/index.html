@@ -1,0 +1,14 @@
+{% extends 'ttours\base.html' %}
+{% block content %}
+{% if seasons %}
+    <table>
+        {% for season in seasons %}
+        <tr>
+            <td><a href="{% url 'ttours:season' season.id %}">{{ season.name }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No seasons created</p>
+{% endif %}
+{% endblock %}
