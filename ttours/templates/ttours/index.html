@@ -1,13 +1,36 @@
 {% extends 'ttours\base.html' %}
+{% block nav %}
+{% if seasons %}
+<a class="nav-link active" href="#">Seasons</a>
+<a class="nav-link" href="#">Players</a>
+<a class="nav-link" href="#">My Profile</a>
+{% endif %}
+{% endblock %}
 {% block content %}
 {% if seasons %}
-    <table>
+        <span class="row">
+            <div class="col col-md-4 col-sd-2"><p class="resp">Season</p></div>
+            <div class="col col-md-4 col-sd-5"><p class="resp">Start</p></div>
+            <div class="col col-md-4 col-sd-5"><p class="resp">End</p></div>
+        </span>
         {% for season in seasons %}
+        <a href="{% url 'ttours:season' season.id %}">
+            
+        <span class="row">
+                <div class="col col-md-4 col-sd-4 {%if season.is_current_season%} current{%endif%}"><p class="resp1"> {{ season.name }}</p></div>
+                <div class="col col-md-4 col-sd-4 {%if season.is_current_season%} current{%endif%}"><p class="resp">{{ season.start_date|date:"d-M-Y" }}</p></div>
+                <div class="col col-md-4 col-sd-4 {%if season.is_current_season%} current{%endif%}"><p class="resp">{{ season.end_date|date:"d-M-Y" }}</p></div>
+        </span>
+        </a>
+       <!--
         <tr>
-            <td><a href="{% url 'ttours:season' season.id %}">{{ season.name }}</a></td>
+            <td>{{ season.name }}</a></td>
+            <td><a href="{% url 'ttours:season' season.id %}">{{ season.start_date }}</a></td>
+            <td><a href="{% url 'ttours:season' season.id %}">{{ season.end_date }}</a></td>
         </tr>
+        -->
+
         {% endfor %}
-    </table>
 {% else %}
     <p>No seasons created</p>
 {% endif %}

@@ -10,7 +10,7 @@ class IndexView(generic.ListView):
     template_name='ttours/index.html'
     context_object_name='seasons'
     def get_queryset(self):
-        return Season.objects.all()
+        return Season.objects.all().order_by('-start_date')
 
 class SeasonView(generic.DetailView):
     template_name='ttours/season.html'

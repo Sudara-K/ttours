@@ -1,10 +1,15 @@
 from django.db import models
+import datetime
+from django.utils import timezone
 
 class Season(models.Model):
     start_date=models.DateTimeField('Season start date')
     end_date=models.DateTimeField('Season end date')
     name=models.CharField(max_length=200)
     last_modified=models.DateTimeField()
+    def is_current_season(self):
+        now=timezone.now()
+        return self.start_date<=now<=self.end_date
 
 class Player(models.Model):
     player_name=models.CharField(max_length=25)
