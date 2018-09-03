@@ -1,0 +1,59 @@
+{% extends 'ttours\base.html' %}
+{% block nav %}
+{% if season %}
+<a class="nav-link active" href="{% url 'ttours:ttindex' %}">Seasons</a>
+<a class="nav-link" href="#">Players</a>
+<a class="nav-link" href="#">My Profile</a>
+<a class="nav-link" href="#">Join Season</a>
+<a class="nav-link" href="{% url 'ttours:match' season.id%}">Record Match</a>
+<!-- add join season navbutton, disable if already in season-->
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if matches %}
+        <h1 class="cover-heading">Last 10 Matches</h1>
+        <br>
+        <span class="row">
+            <div class="col col-md-3"><p class="resp">Player 1</p></div>
+            <div class="col col-md-3"><p class="resp">Player 2</p></div>
+            <div class="col col-md-3"><p class="resp">Winner</p></div>
+            <div class="col col-md-3"><p class="resp">Match time</p></div>
+        </span>
+        {% for match in matches  %}
+            
+        <span class="row">
+                <div class="col col-md-3"><p class="resp">{{match.player1.getPlayerName}} ({{match.player1_score}}) [{{match.player1_rating_delta}}]</p></div>
+                <div class="col col-md-3"><p class="resp">{{match.player2.getPlayerName}} ({{match.player2_score}}) [{{match.player2_rating_delta}}]</p></div>
+                <div class="col col-md-3"><p class="resp">{{match.winner.getPlayerName}}</p></div>
+                <div class="col col-md-3"><p class="resp">{{match.match_time|date:"d-M-Y"}}</p></div>
+        </span>
+        {% endfor %}
+{% else %}
+    <p>No matches in season</p>
+{% endif %}
+
+{% if season %}
+        <br>
+        <h1 class="cover-heading">Players</h1>
+        <br>
+        <span class="row">
+            <div class="col col-md-3"><p class="resp">Player</p></div>
+            <div class="col col-md-2"><p class="resp">Rating</p></div>
+            <div class="col col-md-2"><p class="resp">Win/Loss</p></div>
+            <div class="col col-md-2"><p class="resp">Win%</p></div>
+            <div class="col col-md-3"><p class="resp">Last Match</p></div>
+        </span>
+        {% for sp in season.season_players_set.all  %}
+            
+        <span class="row">
+                <div class="col col-md-3"><p class="resp">{{sp.getPlayerName}}</p></div>
+                <div class="col col-md-2"><p class="resp">{{sp.rating}}</p></div>
+                <div class="col col-md-2"><p class="resp">{{sp.wins}}/{{sp.losses}}</p></div>
+                <div class="col col-md-2"><p class="resp">{{sp.win_percentage}}</p></div>
+                <div class="col col-md-3"><p class="resp">{{sp.last_match|date:"d-M-Y"}}</p></div>
+        </span>
+        {% endfor %}
+{% else %}
+    <p>No players in season</p>
+{% endif %}
+{% endblock %}
