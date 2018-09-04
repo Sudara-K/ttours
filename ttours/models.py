@@ -28,7 +28,7 @@ class Season_Players(models.Model):
     last_match=models.DateTimeField(default=timezone.now)
     wins=models.IntegerField(default=0)
     losses=models.IntegerField(default=0)
-    win_percentage=models.IntegerField(default=0)
+    win_percentage=models.DecimalField(default=0,max_digits=5,decimal_places=2)
     last_modified=models.DateTimeField(default=timezone.now)
     class Meta:
         ordering=['-rating']
@@ -50,6 +50,13 @@ class Match(models.Model):
     last_modified=models.DateTimeField(default=timezone.now)
     class Meta:
         ordering=['-match_time']
+    def save(self, *args, **kwargs):
+        if self.player1 == self.player2:
+            raise Exception('Player 1 cannot be Player 2')
+        super(Match, self).save(*args, **kwargs)
+        if self.player1_score == self.player2_score:
+            raise Exception('How bout you shitters play till someone wins')
+        super(Match, self).save(*args, **kwargs)
     def __str__(self):
        return self.player1.player.player_name+' vs '+self.player2.player.player_name + ' ['+self.season.name+']' +' ('+"{:%B %d, %Y}".format(self.match_time)+')'
 

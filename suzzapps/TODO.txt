@@ -1,0 +1,1 @@
+Use Javascript to adjust options in player1/player2 lookups on record match form

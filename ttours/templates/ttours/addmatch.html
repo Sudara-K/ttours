@@ -1,3 +1,40 @@
+{% extends 'ttours\base.html' %}
+{% load widget_tweaks %}
+{% block nav %}
+<a class="nav-link" href="{% url 'ttours:ttindex' %}">Seasons</a>
+<a class="nav-link" href="#">Players</a>
+<a class="nav-link" href="#">My Profile</a>
+<!-- add join season navbutton, disable if already in season-->
+{% endblock %}
+{% block content %}
+<h1>Record a match</h1>
+<br>
+<div style="width:40vw;text-align: center;align-content: center;">
 <form method="POST">{%csrf_token%}
-    {{form.as_p}}
+    {{ form.non_field_errors }}
+
+    {% for hidden_field in form.hidden_fields %}
+      {{ hidden_field.errors }}
+      {{ hidden_field }}
+    {% endfor %}
+    
+    <table style="margin: 0 auto;">
+      {% for field in form.visible_fields %}
+        <tr>
+          <th>{{ field.label_tag }}</th>
+          <td>
+            {{ field.errors }}
+            {% render_field field%}
+            {{ field.help_text }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    <input type="submit" value="Create Match" style="margin: 0 auto;">
 </form>
+</div>
+<script>
+    var x=document.getElementById("id_player1")
+    
+</script>
+{% endblock %}
