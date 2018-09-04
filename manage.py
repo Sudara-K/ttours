@@ -8,9 +8,9 @@ if __name__ == '__main__':
     django.setup()
 
     # Override default port for `runserver` command
-    from django.core.management.commands.runserver import Command as runserver
-    runserver.default_addr='192.168.3.143'
-    runserver.default_port = "8000"
+    #from django.core.management.commands.runserver import Command as runserver
+    #runserver.default_addr='192.168.3.143'
+    #runserver.default_port = "8000"
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
